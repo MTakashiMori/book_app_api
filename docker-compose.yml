@@ -1,0 +1,43 @@
+version: '3.7'
+services: 
+
+  web:
+    container_name: book_api
+    image: mtakashimori/php8:latest
+    working_dir: /var/www/html/app
+    command: /bin/sh
+    ports: 
+      - "8000:80"
+    volumes:
+      - .:/var/www/html/app
+    entrypoint: [
+      "/bin/sh",
+      "/var/www/html/app/entrypoint.sh"
+    ]
+    tty: true
+    depends_on:
+      - db
+    networks: 
+      main:
+        aliases: 
+          - api
+
+  db:
+    container_name: book_db
+    image: postgres:13
+    ports: 
+      - "5432:5432"
+    volumes:   
+      # - /var/www/html/db/theater:/var/lib/mysql
+      - /Users/takashi/Database/book_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: book_db
+      POSTGRES_USER: user@user
+      POSTGRES_PASSWORD: p@ssw0rd  
+    networks: 
+      main:
+        aliases: 
+          - db
+
+networks: 
+  main:
