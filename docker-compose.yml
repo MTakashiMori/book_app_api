@@ -1,12 +1,12 @@
 version: '3.7'
-services: 
+services:
 
   web:
     container_name: book_api
     image: mtakashimori/php8:latest
     working_dir: /var/www/html/app
-    command: /bin/sh
-    ports: 
+    command: php artisan serve --host=0.0.0.0 --port=80
+    ports:
       - "8000:80"
     volumes:
       - .:/var/www/html/app
@@ -17,27 +17,27 @@ services:
     tty: true
     depends_on:
       - db
-    networks: 
+    networks:
       main:
-        aliases: 
+        aliases:
           - api
 
   db:
     container_name: book_db
     image: postgres:13
-    ports: 
+    ports:
       - "5432:5432"
-    volumes:   
+    volumes:
       # - /var/www/html/db/theater:/var/lib/mysql
       - /Users/takashi/Database/book_db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: book_db
       POSTGRES_USER: user@user
-      POSTGRES_PASSWORD: p@ssw0rd  
-    networks: 
+      POSTGRES_PASSWORD: p@ssw0rd
+    networks:
       main:
-        aliases: 
+        aliases:
           - db
 
-networks: 
+networks:
   main:
