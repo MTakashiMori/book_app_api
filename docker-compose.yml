@@ -1,7 +1,7 @@
 version: '3.7'
 services:
 
-  web:
+  api:
     container_name: book_api
     image: mtakashimori/php8:latest
     working_dir: /var/www/html/app
@@ -28,7 +28,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      # - /var/www/html/db/theater:/var/lib/mysql
       - /Users/takashi/Database/book_db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: book_db

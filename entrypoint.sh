@@ -20,6 +20,8 @@ echo "************** Creating .env **************"
     # sed -i -e "s|DB_HOST=127.0.0.1|DB_HOST=$IP_ADDR|g" .env
     rm -f -- .env-e
 
+    composer du
+
 echo "************** Refreshing database **************"
     php artisan migrate:fresh --seed
 
